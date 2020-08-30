@@ -1,33 +1,35 @@
-//Select all elements
-
+// SELECT ALL ELEMENTS
 const country_name_element = document.querySelector(".country .name");
-const total_case_element = document.querySelector(".total_cases .value");
-const new_cases_element = document.querySelector(".total_cases .new-name");
+const total_cases_element = document.querySelector(".total-cases .value");
+const new_cases_element = document.querySelector(".total-cases .new-value");
 const recovered_element = document.querySelector(".recovered .value");
-const new_recovered_element = document.querySelector(".recovered .new-name");
-const deaths_element = document.querySelector(".deaths .valus");
-const new_deaths = document.querySelector(".deaths .new-value");
+const new_recovered_element = document.querySelector(".recovered .new-value");
+const deaths_element = document.querySelector(".deaths .value");
+const new_deaths_element = document.querySelector(".deaths .new-value");
 
 const ctx = document.getElementById("axes_line_chart").getContext("2d");
 
-//APP VARIABLES
+// APP VARIABLES
 let app_data = [],
-    cases_list =[],
-    recovered_list = [],
-    deaths_list = [],
-    dates = [];
+	cases_list = [],
+	recovered_list = [],
+	deaths_list = [],
+	deaths = [],
+	formatedDates = [];
 
-//Get USER COUNTRY CODE
+// GET USERS COUNTRY CODE
 let country_code = geoplugin_countryCode();
 let user_country;
-country_list.forEach ( country => {
-    if( country.code == country.code){
-        user_country = country.name;
-    }
+country_list.forEach( country => {
+	if( country.code == country_code ){
+		user_country = country.name;
+	}
 });
 
+/* ---------------------------------------------- */
+/*                API URL AND KEY                 */
+/* ---------------------------------------------- */
 
-//Rapid API for COVID-19
 function fetchData(user_country){
 	country_name_element.innerHTML = "Loading...";
 
@@ -39,24 +41,29 @@ function fetchData(user_country){
 			"x-rapidapi-host": "covid19-monitor-pro.p.rapidapi.com",
 			"x-rapidapi-key": "f3b4aa50ebmshf7b658babefdd91p1b725bjsn50aa8e171bb5"
 		}
-    })
-    .then (response => {
-        return response.json();
-    })
-    .then (data => {
-        dates = Object.keys(data);
+	})
+	.then( response => {
+		return response.json();
+	})
+	.then( data => {
+		dates = Object.keys(data);
+		
+		dates.forEach( date => {
+			let DATA = data[date];
 
-        dates.forEach(data => {
-            let DATA = data(date);
-
-            formatedDates.push(formatDate(date));
-            app_data.push(DATA);
-            cases_list.push(parseInt(DATA.total_cases.replace(/,/g, "")));
+			formatedDates.push(formatDate(date));
+			app_data.push(DATA);
+			cases_list.push(parseInt(DATA.total_cases.replace(/,/g, "")));
 			recovered_list.push(parseInt(DATA.total_recovered.replace(/,/g, "")));
 			deaths_list.push(parseInt(DATA.total_deaths.replace(/,/g, "")));
-        })
-    })
-
+		})
+	})
+	.then( () => {
+		updateUI();
+	})
+	.catch( error => {
+		alert(error);
+	})
 }
 
 fetchData(user_country);
