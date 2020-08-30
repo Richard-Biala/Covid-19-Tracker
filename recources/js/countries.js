@@ -207,7 +207,7 @@ let country_list = [
 // SELECT SEARCH COUNTRY ELEMENTS
 const search_country_element = document.querySelector(".search-country");
 const country_list_element = document.querySelector(".country-list");
-const chang_country_btn = document.querySelector(".change-country");
+const change_country_btn = document.querySelector(".change-country");
 const close_list_btn = document.querySelector(".close");
 const input = document.getElementById('search-input')
 
@@ -236,7 +236,7 @@ let num_of_ul_lists = 3;
 createCountryList();
 
 // SHOW/HIDE THE COUTRY LIST ON CLICK EVENT
-chang_country_btn.addEventListener("click", function(){
+change_country_btn.addEventListener("click", function(){
     input.value = "";
     resetCountryList();
     search_country_element.classList.toggle("hide");
