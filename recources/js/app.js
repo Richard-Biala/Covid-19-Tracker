@@ -40,4 +40,17 @@ function fetchData(user_country){
 			"x-rapidapi-key": "f3b4aa50ebmshf7b658babefdd91p1b725bjsn50aa8e171bb5"
 		}
     })
+    .then (response => {
+        return response.json();
+    })
+    .then (data => {
+        dates = Object.keys(data);
+
+        dates.forEach(data => {
+            let DATA = data(date);
+
+            app_data.push(DATA);
+        })
+    })
+
 }
