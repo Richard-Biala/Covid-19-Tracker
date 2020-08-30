@@ -109,3 +109,63 @@ main {
 .deaths {
   height: 100px;
 }
+
+.name {
+  font-size: 2.2em;
+  color: #be64f1;
+  font-weight: bold;
+}
+
+.change-country {
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.3em;
+}
+
+.total-cases .value {
+  font-size: 2em;
+  font-weight: bold;
+}
+.recovered .value {
+  font-size: 2em;
+  font-weight: bold;
+  color: #009688;
+}
+.deaths .value {
+  font-size: 2em;
+  font-weight: bold;
+  color: #f44336;
+}
+
+.new-value {
+  font-size: 1.3em;
+}
+
+.chart {
+  width: 80%;
+  height: 70vh;
+  min-height: 500px;
+
+  margin: 0 auto;
+  padding: 50px 0;
+}
+
+.search-country {
+  position: relative;
+}
+
+.search-box {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+}
+
+.search-box input {
+}
+
+.search-box img {
+  width: 20px;
+}
