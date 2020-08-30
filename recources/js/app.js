@@ -26,4 +26,18 @@ country_list.forEach ( country => {
     }
 });
 
-console.log(user_country);
+
+//Rapid API for COVID-19
+function fetchData(user_country){
+	country_name_element.innerHTML = "Loading...";
+
+	cases_list = [], recovered_list =[], deaths_list = [], dates = [], formatedDates = [];
+	
+	fetch(`https://covid19-monitor-pro.p.rapidapi.com/coronavirus/cases_by_days_by_country.php?country=${user_country}`, {
+		"method": "GET",
+		"headers": {
+			"x-rapidapi-host": "covid19-monitor-pro.p.rapidapi.com",
+			"x-rapidapi-key": "f3b4aa50ebmshf7b658babefdd91p1b725bjsn50aa8e171bb5"
+		}
+    })
+}
