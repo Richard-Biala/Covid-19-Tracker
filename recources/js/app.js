@@ -2,8 +2,8 @@
 
 const country_name_element = document.querySelector(".country .name");
 const total_case_element = document.querySelector(".total_cases .value");
-const recovered_element = document.querySelector(".total_cases .new-name");
-const country_name_element = document.querySelector(".recovered .value");
+const new_cases_element = document.querySelector(".total_cases .new-name");
+const recovered_element = document.querySelector(".recovered .value");
 const new_recovered_element = document.querySelector(".recovered .new-name");
 const deaths_element = document.querySelector(".deaths .valus");
 const new_deaths = document.querySelector(".deaths .new-value");
@@ -54,3 +54,5 @@ function fetchData(user_country){
     })
 
 }
+
+fetchData(user_country);
