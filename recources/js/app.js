@@ -49,10 +49,87 @@ function fetchData(user_country){
         dates.forEach(data => {
             let DATA = data(date);
 
+            formatedDates.push(formatDate(date));
             app_data.push(DATA);
+            cases_list.push(parseInt(DATA.total_cases.replace(/,/g, "")));
+			recovered_list.push(parseInt(DATA.total_recovered.replace(/,/g, "")));
+			deaths_list.push(parseInt(DATA.total_deaths.replace(/,/g, "")));
         })
     })
 
 }
 
 fetchData(user_country);
+
+// UPDATE UI FUNCTION
+function updateUI(){
+	updateStats();
+	axesLinearChart();
+}
+
+function updateStats(){
+	let last_entry = app_data[app_data.length - 1];
+	let before_last_entry = app_data[app_data.length - 2];
+
+	country_name_element.innerHTML = last_entry.country_name;
+
+	total_cases_element.innerHTML = last_entry.total_cases || 0;
+	new_cases_element.innerHTML = `+${last_entry.new_cases || 0 }`;
+
+	recovered_element.innerHTML = last_entry.total_recovered || 0;
+	new_recovered_element.innerHTML = `+${parseInt(last_entry.total_recovered.replace(/,/g, "")) - parseInt(before_last_entry.total_recovered.replace(/,/g, ""))}`;
+	
+	deaths_element.innerHTML = last_entry.total_deaths;
+	new_deaths_element.innerHTML = `+${last_entry.new_deaths || 0}`;
+}
+
+// UPDATE CHART
+let my_chart;
+function axesLinearChart(){
+
+	if(my_chart){
+		my_chart.destroy();
+	}
+
+	my_chart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			datasets: [{
+				label: 'Cases',
+				data: cases_list,
+				fill : false,
+				borderColor : '#FFF',
+				backgroundColor: '#FFF',
+				borderWidth : 1
+			},{
+				label: 'Recovered',
+				data: recovered_list,
+				fill : false,
+				borderColor : '#009688',
+				backgroundColor: '#009688',
+				borderWidth : 1
+			},{
+				label: 'Deaths',
+				data: deaths_list,
+				fill : false,
+				borderColor : '#f44336',
+				backgroundColor: '#f44336',
+				borderWidth : 1
+			}],
+			labels: formatedDates
+		},
+		options: {
+			responsive : true,
+			maintainAspectRatio : false
+		}
+	});
+}
+
+// FORMAT DATES
+const monthsNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function formatDate(dateString){
+	let date = new Date(dateString);
+
+	return `${date.getDate()} ${monthsNames[date.getMonth()]}`;
+}
