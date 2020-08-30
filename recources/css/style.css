@@ -86,8 +86,26 @@ main {
 
 .stats {
   width: 100%;
-  height: 600px;
+  /* height: 600px; */
   background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
     url('../img/bg.jpg');
   background-size: cover;
+}
+
+.latest-report {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 50px;
+
+  color: #ffff;
+}
+
+.country,
+.total-cases,
+.recovered,
+.deaths {
+  height: 100px;
 }
